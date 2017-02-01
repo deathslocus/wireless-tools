@@ -44,7 +44,10 @@ var wpa_cli = module.exports = {
     select_network: select_network,
     scan: scan,
     scan_results: scan_results,
-    save_config: save_config
+    save_config: save_config,
+    p2p_group_add: p2p_group_add,
+    p2p_group_remove: p2p_group_remove,
+    p2p_get_passphrase: p2p_get_passphrase
 };
 
 /**
@@ -413,4 +416,29 @@ function save_config(interface, callback) {
         'save_config'].join(' ');
 
     return this.exec(command, parse_command_interface(callback));
+}
+
+function p2p_group_add(interface, callback){
+   var command = ['wpa_cli -i', 
+      interface,
+      'p2p_group_add'].join(' ');
+   
+   return this.exec(command, parse_command_interface(callback));
+}
+
+function p2p_group_remove(interface, callback){
+   var command = ['wpa_cli -i', 
+      interface,
+      'p2p_group_remove',
+      interface].join(' ');
+
+   return this.exec(command, parse_command_interface(callback));
+}
+
+function p2p_get_passphrase(interface, callback){
+   var command = ['wpa_cli -i', 
+      interface,
+      'p2p_get_passphrase'].join(' ');
+
+   return this.exec(command, parse_command_interface(callback));
 }
